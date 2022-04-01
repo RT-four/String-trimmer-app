@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="String trimming program" />
+        <module name="String-trimmer-app" />
       </profile>
     </annotationProcessing>
   </component>
