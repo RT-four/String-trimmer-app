@@ -20,7 +20,7 @@ public class Command {
         }
         String rangeString = commandList.get(commandList.size()-1);
         if(rangeString.startsWith("-")){
-            this.rangeFrom = "start";
+            this.rangeFrom = "process";
             this.rangeTo = rangeString.substring(1);
         }else if(rangeString.endsWith("-")){
             this.rangeFrom = rangeString.substring(0, rangeString.length()-1);
