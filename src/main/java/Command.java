@@ -8,27 +8,32 @@ public class Command {
     private String rangeTo;
 
     public Command(String command) {
-        List<String> commandList = List.of(command.split(" "));
-        this.mode = Character.toString(commandList.get(1).charAt(1));
-        if (command.contains("-o")) {
-            this.outputFilePath = commandList.get(3);
-            this.inputFilePath = (commandList.size() == 7) ? commandList.get(4) : "console";
-        } else {
-            this.outputFilePath = "console";
-            this.inputFilePath = (commandList.size() == 5) ? commandList.get(2) : "console";
+        try {
+            List<String> commandList = List.of(command.split(" "));
+            this.mode = Character.toString(commandList.get(1).charAt(1));
+            if (command.contains("-o")) {
+                this.outputFilePath = commandList.get(3);
+                this.inputFilePath = (commandList.size() == 7) ? commandList.get(4) : "console";
+            } else {
+                this.outputFilePath = "console";
+                this.inputFilePath = (commandList.size() == 5) ? commandList.get(2) : "console";
 
+            }
+            String rangeString = commandList.get(commandList.size() - 1);
+            if (rangeString.startsWith("-")) {
+                this.rangeFrom = "process";
+                this.rangeTo = rangeString.substring(1);
+            } else if (rangeString.endsWith("-")) {
+                this.rangeFrom = rangeString.substring(0, rangeString.length() - 1);
+                this.rangeTo = "end";
+            } else {
+                this.rangeFrom = rangeString.substring(0, rangeString.indexOf('-'));
+                this.rangeTo = rangeString.substring(rangeString.indexOf('-') + 1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        String rangeString = commandList.get(commandList.size()-1);
-        if(rangeString.startsWith("-")){
-            this.rangeFrom = "process";
-            this.rangeTo = rangeString.substring(1);
-        }else if(rangeString.endsWith("-")){
-            this.rangeFrom = rangeString.substring(0, rangeString.length()-1);
-            this.rangeTo = "end";
-        }else {
-            this.rangeFrom = rangeString.substring(0, rangeString.indexOf('-'));
-            this.rangeTo = rangeString.substring(rangeString.indexOf('-')+1);
-        }
+
     }
 
     public String getMode() {
